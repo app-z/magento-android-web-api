@@ -1,13 +1,28 @@
 <?php
+/* License
+*
+*   This software is distributed under the [GNU GPL V3](http://www.gnu.org/licenses/gpl.html) License.
+*
+*/
 
-ini_set('display_errors', 1);
+
+//ini_set('display_errors', 1);
 
 
+//
+//	Set key for access to functionality this script
+//
 define('WEB_API_KEY', 'key1');
+
+
+
+
+
 
 
 require_once('./app/Mage.php');
 Mage::app();
+
 
 $key = Mage::app()->getRequest()->getParam('key');
 
@@ -175,9 +190,6 @@ function getNodeChildrenData(Varien_Data_Tree_Node $node)
 	 }
     return $result;
 }
-
-
-//print_r(json_encode(getCategoryTree($parent, $level)));
 
 
 ?>
