@@ -1,6 +1,8 @@
 <?php
 /* License
 *
+*   Create by App-z.net
+*
 *   This software is distributed under the [GNU GPL V3](http://www.gnu.org/licenses/gpl.html) License.
 *
 */
@@ -13,9 +15,6 @@
 //	Set key for access to functionality this script
 //
 define('WEB_API_KEY', 'key1');
-
-
-
 
 
 
@@ -68,18 +67,18 @@ function product($product_id){
 	$json = array('success' => true);
 
 	$product = Mage::getModel('catalog/product')->load($product_id);
-
-	$json['id'] = $product->getId();
-	$json['name'] = $product->getName();
-	$json['price'] = Mage::helper('core')->currency($product->getPrice(), true, false);
-	$json['description'] = $product->getDescription();
-	$json['image'] = (string)Mage::helper('catalog/image')->init($product, 'image');
+	$json['product'] = array();
+	$json['product']['id'] = $product->getId();
+	$json['product']['name'] = $product->getName();
+	$json['product']['price'] = Mage::helper('core')->currency($product->getPrice(), true, false);
+	$json['product']['description'] = $product->getDescription();
+	$json['product']['image'] = (string)Mage::helper('catalog/image')->init($product, 'image');
 
 	$mediaGallery = Mage::getModel('catalog/product')->load($product->getId())->getMediaGalleryImages()->getItems();
-	$json['images'] = array();
+	$json['product']['images'] = array();
         //loop through the images
         foreach ($mediaGallery as $image){
-            $json['images'][] = $image['url'];
+            $json['product']['images'][] = $image['url'];
         }
 	return $json;
 }
@@ -155,19 +154,19 @@ function getCategoryTree( $parent = 0, $recursionLevel = 1 )
         ->getChildren();
     $tree->addCollectionData(null, false, $parent);
 
-    $categoryTreeData = array();
-
     $json = array('success' => true);
 
     $result = array();
 
+
+	$category = Mage::getModel ('catalog/category')->load($category_id);
 
     foreach ($nodes as $node) {
 
         $result[] = array(
 			'category_id'   => $node->getData('entity_id'),
 			'parent_id'     => $parent,
-			'name'          => $node->getData('name'),
+			'name'          => $node->getName(),
 			'categories'    => getNodeChildrenData($node));
     }
 
@@ -183,14 +182,11 @@ function getNodeChildrenData(Varien_Data_Tree_Node $node)
         $result[] = array(
 			'category_id'   => $childNode->getData('entity_id'),
 			'parent_id'     => $node->getData('entity_id'),
-			'name'          => $node->getData('name'),
+			'name'          => $childNode->getData('name'),
 			'categories'    => getNodeChildrenData($childNode));
-
-
 	 }
     return $result;
 }
 
 
 ?>
-
