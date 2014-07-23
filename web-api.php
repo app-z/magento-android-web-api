@@ -158,11 +158,7 @@ function getCategoryTree( $parent = 0, $recursionLevel = 1 )
 
     $result = array();
 
-
-	$category = Mage::getModel ('catalog/category')->load($category_id);
-
     foreach ($nodes as $node) {
-
         $result[] = array(
 			'category_id'   => $node->getData('entity_id'),
 			'parent_id'     => $parent,
