@@ -82,8 +82,9 @@ function random_products($limit){
 		$json['products'][] = array(
 				'id'		=> $product->getId(),
 				'name'		=> $product->getName(),
-				'pirce'		=> Mage::helper('core')->currency($product->getPrice(), true, false), //." ".$currencyCode,
-				'thumb'		=> (string)Mage::helper('catalog/image')->init($product, 'thumbnail')
+				'href'		=> $product->getProductUrl(),
+				'thumb'		=> (string)Mage::helper('catalog/image')->init($product, 'thumbnail'),
+				'pirce'		=> Mage::helper('core')->currency($product->getPrice(), true, false) //." ".$currencyCode,
 			);
 	}
 	return $json;
@@ -156,11 +157,6 @@ function products($category_id){
 	}
 	return $json;
 }
-
-
-
-
-
 
 
 
