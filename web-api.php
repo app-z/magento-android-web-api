@@ -54,8 +54,43 @@ if ( !isset($key) || $key != WEB_API_KEY ) {
 	$product_id = Mage::app()->getRequest()->getParam('id', 0);
 	# -- End $_GET params --------------------------
 	print_r(json_encode(product($product_id)));
+
+}elseif(Mage::app()->getRequest()->getParam('route') == "feed/web_api/random"){
+
+	# -- $_GET params ------------------------------
+	$limit = Mage::app()->getRequest()->getParam('limit', 4);
+	# -- End $_GET params --------------------------
+	print_r(json_encode(random_products($limit)));
 }
 
+
+
+
+//
+//	Random Products Items
+//	
+//	http://localhost/magento/web-api.php?route=feed/web_api/random&limit=4&key=key1
+//
+function random_products($limit){
+	$json = array('success' => true);
+
+	$products = Mage::getModel('catalog/product')->getCollection();
+	$products->addAttributeToSelect(array('name', 'thumbnail', 'price')); //feel free to add any other attribues you need.
+
+	Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($products);
+	Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($products); 
+	$products->getSelect()->order('RAND()')->limit($limit);
+
+	foreach($products as $product){ 
+		$json['products'][] = array(
+				'id'		=> $product->getId(),
+				'name'		=> $product->getName(),
+				'pirce'		=> Mage::helper('core')->currency($product->getPrice(), true, false), //." ".$currencyCode,
+				'thumb'		=> (string)Mage::helper('catalog/image')->init($product, 'thumbnail')
+			);
+	}
+	return $json;
+}
 
 
 //
@@ -121,7 +156,6 @@ function products($category_id){
 				'href'                  => $product->getProductUrl(),
 				'thumb'                 => (string)Mage::helper('catalog/image')->init($product, 'thumbnail')
 			);
-		echo $thumbnail;
 	}
 	return $json;
 }
