@@ -8,9 +8,6 @@
 */
 
 
-//ini_set('display_errors', 1);
-
-
 //
 //	Set key for access to functionality this script
 //
