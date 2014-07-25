@@ -5,9 +5,9 @@ This is a small module that adds the ability to remotely work with the Magento v
 
 More detail  http://app-z.net
 
-Install
+Install<br>
 1. Copy web-api.php to root Magento folder<br>
-2. Set key parametr for access to functionality this script
+2. Set key parametr for access to functionality this script<br>
 
 Examples of use
 * /web-api.php?route=feed/web_api/categories&parent=0&level=2&key=key1
