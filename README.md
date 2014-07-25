@@ -1,6 +1,24 @@
 magento-android-web-api
 =======================
 
-This is a small module that adds the ability to remotely work with the Magento
+This is a small module that adds the ability to remotely work with the Magento via the REST API
 
 More detail  http://app-z.net
+
+Install
+1) Copy web-api.php to root Magento folder
+2) Set key parametr for access to functionality this script
+
+Sample of use
+* /web-api.php?route=feed/web_api/categories&parent=0&level=2&key=key1
+  Return Categories tree information
+
+* /web-api.php?route=feed/web_api/products&category=4&key=key1
+  Return Products list in category
+
+* /web-api.php?route=feed/web_api/product&id=800&key=key1
+  Return product item
+
+* /web-api.php?route=feed/web_api/random&limit=4&key=key1
+  Return Random Products list
+
