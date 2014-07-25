@@ -25,3 +25,10 @@ Examples of use
   Return Random Products list
 
 
+
+
+
+License
+-------
+
+This software is distributed under the [GNU GPL V3](http://www.gnu.org/licenses/gpl.html) License.
