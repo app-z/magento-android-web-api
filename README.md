@@ -24,3 +24,4 @@ Examples of use
 * /web-api.php?route=feed/web_api/random&limit=4&key=key1
   Return Random Products list
 
+
